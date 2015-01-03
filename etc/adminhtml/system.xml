@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/magento/magento2/master/app/code/Magento/Backend/etc/system_file.xsd">
+
+    <system>
+        <section id="system">
+            <group id="schumacherfm_pace" translate="label" showInDefault="1" showInWebsite="1" showInStore="1"
+                   sortOrder="1600">
+                <label>Pace [SchumacherFM]</label>
+                <field id="backend_pace_color" translate="label" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Backend Color Theme</label>
+                    <source_model>SchumacherFM\Pace\Model\System\Config\Source\ThemeColors</source_model>
+                </field>
+                <field id="backend_pace_theme" translate="label" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Backend Theme</label>
+                    <source_model>SchumacherFM\Pace\Model\System\Config\Source\ThemeFiles</source_model>
+                </field>
+                <field id="backend_custom_css" translate="label" type="textarea" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Backend Custom CSS</label>
+                    <tooltip>With this custom CSS you can modify the default pace themes.
+                        E.g.: for each store view a different color.
+                    </tooltip>
+                </field>
+
+                <field id="frontend_enable" translate="label" type="select" sortOrder="50" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Frontend Theme</label>
+                    <source_model>Magento\Backend\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="frontend_pace_theme" translate="label" type="select" sortOrder="60" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Frontend Theme</label>
+                    <source_model>SchumacherFM\Pace\Model\System\Config\Source\ThemeFiles</source_model>
+                    <depends>
+                        <field id="frontend_enable">1</field>
+                    </depends>
+                </field>
+
+                <field id="frontend_custom_css" translate="label" type="textarea" sortOrder="70" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Frontend Custom CSS</label>
+                    <tooltip>With this custom CSS you can modify the default pace themes.
+                        E.g.: for each store view a different color.
+                    </tooltip>
+                    <depends>
+                        <field id="frontend_enable">1</field>
+                    </depends>
+                </field>
+
+            </group>
+        </section>
+    </system>
+</config>

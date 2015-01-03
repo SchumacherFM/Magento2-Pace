@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/magento/magento2/master/lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <type name="Magento\Backend\Block\Page\RequireJs">
+        <plugin name="admin_inject_pace_after_to_html" type="SchumacherFM\Pace\Block\Plugin\Backend\Page\RequireJs"/>
+    </type>
+</config>
