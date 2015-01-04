@@ -12,12 +12,21 @@ Demo [http://github.hubspot.com/pace/docs/welcome/](http://github.hubspot.com/pa
 
 Theme is configurable in the backend section System -> Configuration -> Advanced -> System -> Pace.
 
-@todo frontend integration
+Backend Integration
+-------------------
+
+A plugin has been created to after intercept the toHtml() method in `\Magento\Backend\Block\Page\RequireJs`.
+That is the only way to integrate pace directly after the `<head>` tag. Pace CSS/JS will be cached.
+
+Frontend Integration
+--------------------
+
+@todo because internal Mage2 code states: Temporary solution
  
 Installation via Composer
 ------------
 
-add the following to the require section of your Magento 2 `composer.json` file
+Add the following to the require section of your Magento 2 `composer.json` file
 
     "schumacherfm/mage2-pace": "dev-master"
 
