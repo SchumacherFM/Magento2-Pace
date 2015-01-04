@@ -13,17 +13,18 @@ class RequireJs extends \SchumacherFM\Pace\Block\Plugin\AbstractPace
 {
 
     /**
+     * There is also the possibility to add a block to head.additional but then
+     * pace would be added a little bit later to the page instead of right after
+     * the <head> tag.
      *
-     * @param \Magento\Backend\Block\Page\RequireJs $subject
+     * @param \Magento\Backend\Block\Page\RequireJs\Interceptor $subject
      * @param string $html
      *
      * @return string
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function afterToHtml(\Magento\Backend\Block\Page\RequireJs $subject, $html)
+    public function afterToHtml(\Magento\Backend\Block\Page\RequireJs\Interceptor $subject, $html)
     {
-        /** @var $subject \Magento\Backend\Block\Page\RequireJs\Interceptor */
-        return ($this->_isAllowed($subject) ? $this->_getPaceHtml() : '') . $html;
+        return ($this->_isAllowed($subject) ? $this->_getPaceHtml() : '') . PHP_EOL . $html;
     }
-
 }
