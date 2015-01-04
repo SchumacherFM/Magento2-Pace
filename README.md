@@ -22,7 +22,12 @@ Frontend Integration
 --------------------
 
 @todo because internal Mage2 code states: Temporary solution
- 
+
+Tests
+-----
+
+@todo once calling phpunit will not take aeon.
+
 Installation via Composer
 ------------
 
