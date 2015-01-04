@@ -8,7 +8,7 @@
  */
 namespace SchumacherFM\Pace\Model;
 
-class Config
+class Config implements ConfigInterface
 {
     /**
      * @var \Magento\Framework\App\Config\ScopeConfigInterface

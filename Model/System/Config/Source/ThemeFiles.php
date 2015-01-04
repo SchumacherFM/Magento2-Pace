@@ -36,18 +36,51 @@ class ThemeFiles extends AbstractTheme
      */
     public function toOptionArray()
     {
-
-        $files = $this->_modulesDirectory->read(
-            implode(DIRECTORY_SEPARATOR, ['SchumacherFM', 'Pace', 'view', 'adminhtml', 'web', 'js', 'pace', 'themes'])
-        );
-
         $return = [];
-
-        foreach ($files as $file) {
+        foreach ($this->getThemeFiles() as $file) {
             $bFile = basename($file);
-            $return[] = ['value' => $bFile, 'label' => $bFile];
+            if (false !== strpos($file, '.css')) {
+                $return[] = ['value' => $bFile, 'label' => $bFile];
+            }
         }
 
         return $return;
+    }
+
+    /**
+     * @return array
+     */
+    public function getThemeFiles()
+    {
+        return $this->_modulesDirectory->read($this->getBaseDir() . 'themes');
+    }
+
+    /**
+     * @return string
+     */
+    public function getBaseDir()
+    {
+        return implode(DIRECTORY_SEPARATOR, ['SchumacherFM', 'Pace', 'view', 'adminhtml', 'web', 'js', 'pace']) .
+        DIRECTORY_SEPARATOR;
+    }
+
+    /**
+     * This is normally the incorrect place in this class to retrieve JS...
+     *
+     * @return string
+     */
+    public function getPaceJsContent()
+    {
+        return $this->_modulesDirectory->readFile($this->getBaseDir() . 'pace.min.js');
+    }
+
+    /**
+     * @param array $path
+     * @return string
+     */
+    public function getPaceCssContent(array $path)
+    {
+        return $this->_modulesDirectory->readFile($this->getBaseDir() . 'themes' .
+            DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $path));
     }
 }
