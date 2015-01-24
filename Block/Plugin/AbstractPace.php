@@ -56,8 +56,7 @@ abstract class AbstractPace
         Context $context,
         ConfigInterface $config,
         ThemeFiles $themeFiles
-    )
-    {
+    ) {
         $this->_storeManager = $storeManager;
         $this->_config = $config;
         $this->_cache = $context->getCache();
@@ -69,8 +68,7 @@ abstract class AbstractPace
      * @param AbstractBlock $subject
      * @return bool
      */
-    protected function _isAllowed(AbstractBlock $subject)
-    {
+    protected function _isAllowed(AbstractBlock $subject) {
         if ($subject instanceof RequireJs) {
             return true;
         }
@@ -88,8 +86,7 @@ abstract class AbstractPace
      *
      * @return string
      */
-    protected function _getPaceHtml()
-    {
+    protected function _getPaceHtml() {
         $pace = $this->_loadCache();
         if (false === $pace) {
             $pace = $this->_getCss() . $this->_getJs();
@@ -101,8 +98,7 @@ abstract class AbstractPace
     /**
      * @return string
      */
-    protected function _getCss()
-    {
+    protected function _getCss() {
         $color = $this->_config->getThemeColor();
         $color = true === empty($color) ? '' : $color . DIRECTORY_SEPARATOR;
 
@@ -117,8 +113,7 @@ abstract class AbstractPace
     /**
      * @return string
      */
-    protected function _getJs()
-    {
+    protected function _getJs() {
         return '<script type="text/javascript">' .
         $this->_themeFiles->getPaceJsContent()
         . '</script>';
@@ -129,8 +124,7 @@ abstract class AbstractPace
      *
      * @return string
      */
-    protected function _compressCss($css)
-    {
+    protected function _compressCss($css) {
         $css = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css);
         $css = str_replace([': ', ', '], [':', ','], $css);
         return preg_replace('~([\r\n\t]+|\s{2,})~', '', $css);
@@ -141,8 +135,7 @@ abstract class AbstractPace
      *
      * @return string|false
      */
-    protected function _loadCache()
-    {
+    protected function _loadCache() {
         if (!$this->_cacheState->isEnabled(\Magento\Framework\View\Element\AbstractBlock::CACHE_GROUP)) {
             return false;
         }
@@ -155,8 +148,7 @@ abstract class AbstractPace
      * @param string $data
      * @return $this
      */
-    protected function _saveCache($data)
-    {
+    protected function _saveCache($data) {
         if (!$this->_cacheState->isEnabled(\Magento\Framework\View\Element\AbstractBlock::CACHE_GROUP)) {
             return false;
         }
@@ -165,20 +157,17 @@ abstract class AbstractPace
         return $this;
     }
 
-    protected function getCacheLifetime()
-    {
+    protected function getCacheLifetime() {
         return null; // unlimited time valid
     }
 
-    protected function getCacheTags()
-    {
+    protected function getCacheTags() {
         return [
             \Magento\Backend\Block\Menu::CACHE_TAGS // are there any better?
         ];
     }
 
-    protected function getCacheKey()
-    {
+    protected function getCacheKey() {
         $key = [
             $this->_storeManager->getStore()->getId(),
             'pace_js',

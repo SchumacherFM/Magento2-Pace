@@ -4,7 +4,7 @@
     <default>
         <system>
             <schumacherfm_pace>
-                <backend_pace_theme>pace-theme-flat-top</backend_pace_theme>
+                <backend_pace_theme>pace-theme-flat-top.css</backend_pace_theme>
             </schumacherfm_pace>
         </system>
     </default>

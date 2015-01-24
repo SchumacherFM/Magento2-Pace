@@ -24,8 +24,7 @@ class ThemeFiles extends AbstractTheme
      */
     public function __construct(
         \Magento\Framework\Filesystem $filesystem
-    )
-    {
+    ) {
         $this->_modulesDirectory = $filesystem->getDirectoryRead(DirectoryList::MODULES);
     }
 
@@ -34,8 +33,7 @@ class ThemeFiles extends AbstractTheme
      *
      * @return array
      */
-    public function toOptionArray()
-    {
+    public function toOptionArray() {
         $return = [];
         foreach ($this->getThemeFiles() as $file) {
             $bFile = basename($file);
@@ -50,16 +48,14 @@ class ThemeFiles extends AbstractTheme
     /**
      * @return array
      */
-    public function getThemeFiles()
-    {
+    public function getThemeFiles() {
         return $this->_modulesDirectory->read($this->getBaseDir() . 'themes');
     }
 
     /**
      * @return string
      */
-    public function getBaseDir()
-    {
+    public function getBaseDir() {
         return implode(DIRECTORY_SEPARATOR, ['SchumacherFM', 'Pace', 'view', 'adminhtml', 'web', 'js', 'pace']) .
         DIRECTORY_SEPARATOR;
     }
@@ -69,8 +65,7 @@ class ThemeFiles extends AbstractTheme
      *
      * @return string
      */
-    public function getPaceJsContent()
-    {
+    public function getPaceJsContent() {
         return $this->_modulesDirectory->readFile($this->getBaseDir() . 'pace.min.js');
     }
 
@@ -78,8 +73,7 @@ class ThemeFiles extends AbstractTheme
      * @param array $path
      * @return string
      */
-    public function getPaceCssContent(array $path)
-    {
+    public function getPaceCssContent(array $path) {
         return $this->_modulesDirectory->readFile($this->getBaseDir() . 'themes' .
             DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $path));
     }

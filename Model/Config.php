@@ -20,8 +20,7 @@ class Config implements ConfigInterface
      */
     public function __construct(
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
-    )
-    {
+    ) {
         $this->_scopeConfig = $scopeConfig;
     }
 
@@ -30,8 +29,7 @@ class Config implements ConfigInterface
      *
      * @return string
      */
-    public function getThemeFileName($type = 'backend')
-    {
+    public function getThemeFileName($type = 'backend') {
         return $this->_scopeConfig->getValue(
             'system/schumacherfm_pace/' . $type . '_pace_theme',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
@@ -42,8 +40,7 @@ class Config implements ConfigInterface
      * @param string $type
      * @return string
      */
-    public function getThemeColor($type = 'backend')
-    {
+    public function getThemeColor($type = 'backend') {
         return $this->_scopeConfig->getValue(
             'system/schumacherfm_pace/' . $type . '_pace_color',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
@@ -55,8 +52,7 @@ class Config implements ConfigInterface
      *
      * @return string
      */
-    public function getCustomCSS($type = 'backend')
-    {
+    public function getCustomCSS($type = 'backend') {
         return $this->_scopeConfig->getValue(
             'system/schumacherfm_pace/' . $type . '_custom_css',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
@@ -66,8 +62,7 @@ class Config implements ConfigInterface
     /**
      * @return bool
      */
-    public function isFrontendEnabled()
-    {
+    public function isFrontendEnabled() {
         return $this->_scopeConfig->isSetFlag(
             'system/schumacherfm_pace/frontend_enable',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
