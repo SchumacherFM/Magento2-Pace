@@ -10,7 +10,7 @@ namespace SchumacherFM\Pace\Block\Plugin;
 
 use \Magento\Backend\Block\Page\RequireJs;
 use \Magento\Framework\View\Element\AbstractBlock;
-use \Magento\Store\Model\StoreManagerInterface;
+use \Magento\Framework\Store\StoreManagerInterface;
 use \Magento\Framework\View\Element\Template\Context;
 use \SchumacherFM\Pace\Model\ConfigInterface;
 use \SchumacherFM\Pace\Model\System\Config\Source\ThemeFiles;
