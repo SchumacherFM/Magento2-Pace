@@ -9,23 +9,35 @@
  */
 namespace SchumacherFM\Pace\Model\System\Config\Source;
 
-use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Filesystem;
+use Magento\Framework\Component\ComponentRegistrar;
+use Magento\Framework\Filesystem\Directory\ReadFactory;
 
 class ThemeFiles extends AbstractTheme
 {
     /**
-     * @var \Magento\Framework\Filesystem\Directory\ReadInterface
+     * @var ComponentRegistrar
      */
-    protected $_modulesDirectory;
+    private $componentRegistrar;
 
     /**
-     * @param Filesystem $filesystem
+     * @var ReadFactory
+     */
+    private $readDirFactory;
+
+    /**
+     * Constructor
+     *
+     * @param ComponentRegistrar $componentRegistrar
+     * @param ReadFactory $readDirFactory
      */
     public function __construct(
-        \Magento\Framework\Filesystem $filesystem
-    ) {
-        $this->_modulesDirectory = $filesystem->getDirectoryRead(DirectoryList::MODULES);
+        ComponentRegistrar $componentRegistrar,
+        ReadFactory $readDirFactory
+    )
+    {
+        $this->componentRegistrar = $componentRegistrar;
+        $this->readDirFactory = $readDirFactory;
     }
 
     /**
@@ -33,7 +45,8 @@ class ThemeFiles extends AbstractTheme
      *
      * @return array
      */
-    public function toOptionArray() {
+    public function toOptionArray()
+    {
         $return = [];
         foreach ($this->getThemeFiles() as $file) {
             $bFile = basename($file);
@@ -41,23 +54,26 @@ class ThemeFiles extends AbstractTheme
                 $return[] = ['value' => $bFile, 'label' => $bFile];
             }
         }
-
         return $return;
     }
 
     /**
      * @return array
      */
-    public function getThemeFiles() {
-        return $this->_modulesDirectory->read($this->getBaseDir() . 'themes');
+    public function getThemeFiles()
+    {
+        $cssDir = $this->getBaseDir() . 'themes' . DIRECTORY_SEPARATOR;
+        $readDir = $this->readDirFactory->create($cssDir);
+        return $readDir->search('pace*.css');
     }
 
     /**
      * @return string
      */
-    public function getBaseDir() {
-        return implode(DIRECTORY_SEPARATOR, ['SchumacherFM', 'Pace', 'view', 'adminhtml', 'web', 'js', 'pace']) .
-        DIRECTORY_SEPARATOR;
+    private function getBaseDir()
+    {
+        $path = $this->componentRegistrar->getPath(ComponentRegistrar::MODULE, 'SchumacherFM_Pace');
+        return implode(DIRECTORY_SEPARATOR, [$path, 'view', 'adminhtml', 'web', 'js', 'pace']) . DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -65,16 +81,22 @@ class ThemeFiles extends AbstractTheme
      *
      * @return string
      */
-    public function getPaceJsContent() {
-        return $this->_modulesDirectory->readFile($this->getBaseDir() . 'pace.min.js');
+    public function getPaceJsContent()
+    {
+        $dir = $this->readDirFactory->create($this->getBaseDir());
+        return $dir->readFile('pace.min.js');
     }
 
     /**
      * @param array $path
      * @return string
      */
-    public function getPaceCssContent(array $path) {
-        return $this->_modulesDirectory->readFile($this->getBaseDir() . 'themes' .
-            DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $path));
+    public function getPaceCssContent(array $path)
+    {
+        $filePath = $this->getBaseDir() . 'themes'  . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $path);
+        $themeDir = dirname( $filePath );
+        $themeFile = basename( $filePath );
+        $dir = $this->readDirFactory->create($themeDir);
+        return $dir->readFile($themeFile);
     }
 }

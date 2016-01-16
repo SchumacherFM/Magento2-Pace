@@ -33,7 +33,7 @@ Installation via Composer
 
 Add the following to the require section of your Magento 2 `composer.json` file
 
-    "schumacherfm/mage2-pace": "dev-master"
+    "schumacherfm/mage2-pace": "v0.2.0"
 
 additionally add the following in the repository section
 
@@ -54,7 +54,7 @@ Compatibility
 -------------
 
 - Magento >= 2
-- php >= 5.4.0
+- php >= 5.5.0
 
 Support / Contribution
 ----------------------
@@ -70,6 +70,11 @@ For versioning have a look at [Semantic Versioning 2.0.0](http://semver.org/)
 History
 -------
 
+#### 0.2.0
+
+- Compatible to Magento 2 GA 2.0.0
+- PHP7 compatible
+
 #### 0.1.0
 
 - pace.js to 1.0.2
@@ -80,7 +85,7 @@ License
 
 The MIT License (MIT)
 
-Copyright (c) 2013 Cyrill Schumacher
+Copyright (c) 2013-2016 Cyrill Schumacher
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in

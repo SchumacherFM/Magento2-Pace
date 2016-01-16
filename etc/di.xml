@@ -1,8 +1,4 @@
 <?xml version="1.0"?>
-
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/magento/magento2/master/lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
-
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="SchumacherFM\Pace\Model\ConfigInterface" type="SchumacherFM\Pace\Model\Config"/>
-
 </config>

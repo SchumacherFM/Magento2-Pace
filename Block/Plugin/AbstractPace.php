@@ -10,7 +10,6 @@ namespace SchumacherFM\Pace\Block\Plugin;
 
 use \Magento\Backend\Block\Page\RequireJs;
 use \Magento\Framework\View\Element\AbstractBlock;
-use \Magento\Framework\Store\StoreManagerInterface;
 use \Magento\Framework\View\Element\Template\Context;
 use \SchumacherFM\Pace\Model\ConfigInterface;
 use \SchumacherFM\Pace\Model\System\Config\Source\ThemeFiles;
@@ -36,7 +35,7 @@ abstract class AbstractPace
     protected $_cacheState;
 
     /**
-     * @var StoreManagerInterface
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
@@ -46,13 +45,13 @@ abstract class AbstractPace
     protected $_themeFiles;
 
     /**
-     * @param StoreManagerInterface $storeManager
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param Context $context
      * @param ConfigInterface $config
      * @param ThemeFiles $themeFiles
      */
     public function __construct(
-        StoreManagerInterface $storeManager,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         Context $context,
         ConfigInterface $config,
         ThemeFiles $themeFiles

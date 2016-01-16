@@ -1,7 +1,5 @@
 <?xml version="1.0"?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/magento/magento2/master/app/code/Magento/Backend/etc/system_file.xsd">
-
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
         <section id="system">
             <group id="schumacherfm_pace" translate="label" showInDefault="1" showInWebsite="1" showInStore="1"
@@ -28,7 +26,7 @@
                 <field id="frontend_enable" translate="label" type="select" sortOrder="50" showInDefault="1"
                        showInWebsite="1" showInStore="1">
                     <label>Frontend Theme</label>
-                    <source_model>Magento\Backend\Model\Config\Source\Yesno</source_model>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="frontend_pace_theme" translate="label" type="select" sortOrder="60" showInDefault="1"
                        showInWebsite="1" showInStore="1">

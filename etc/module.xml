@@ -1,6 +1,5 @@
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/magento/magento2/master/lib/internal/Magento/Framework/Module/etc/module.xsd">
-    <module name="SchumacherFM_Pace" schema_version="0">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="SchumacherFM_Pace" setup_version="0.0.1">
         <sequence>
             <module name="Magento_Core"/>
             <module name="Magento_Store"/>
