@@ -2,11 +2,10 @@
     "name": "schumacherfm/mage2-pace",
     "description": "Magento2 Automatic page load progress bar for the backend and frontend.",
     "require": {
-        "php": "~5.5.0|~5.6.0|~7.0.0",
         "magento/framework": "*"
     },
     "type": "magento2-module",
-    "version": "0.1.0",
+    "version": "v0.2.1",
     "license": [
         "MIT"
     ],
