@@ -21,9 +21,7 @@ class ThemeColors extends AbstractTheme
     {
 
         $colors = ['black', 'blue', 'green', 'orange', 'pink', 'purple', 'red', 'silver', 'white', 'yellow'];
-        $return = [
-            ['value' => '', 'label' => __('Default')]
-        ];
+        $return = [];
         foreach ($colors as $color) {
             $return[] = ['value' => $color, 'label' => __($color)];
         }
