@@ -31,24 +31,12 @@ Tests
 Installation via Composer
 ------------
 
-Add the following to the require section of your Magento 2 `composer.json` file
+Please run below commands in sequence
 
-    "schumacherfm/mage2-pace": "v0.2.0"
-
-additionally add the following in the repository section
-
-        "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/SchumacherFM/Magento2-Pace.git"
-        }
-    ]
-    
-run `composer update`
-
-add the following to `app/etc/config.php`
-
-    'SchumacherFM_Pace'=>1
+1. composer require schumacherfm/mage2-pace
+2. php bin/magento setup:upgrade
+3. php bin/magento static:content:generate
+4. php bin/magento setup:di:compile
 
 Compatibility
 -------------
