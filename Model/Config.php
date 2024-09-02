@@ -11,59 +11,65 @@ namespace SchumacherFM\Pace\Model;
 class Config implements ConfigInterface
 {
     /**
-     * @var \Magento\Framework\App\Config\ScopeConfigInterface
-     */
-    protected $_scopeConfig;
-
-    /**
+     * Get Custom CSS config
+     *
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      */
     public function __construct(
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+        protected \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
     ) {
-        $this->_scopeConfig = $scopeConfig;
     }
 
     /**
-     * @param string $type
+     * Get Theme file config
      *
+     * @param string $type
      * @return string
      */
-    public function getThemeFileName($type = 'backend') {
-        return $this->_scopeConfig->getValue(
+    public function getThemeFileName($type = 'backend')
+    {
+        return $this->scopeConfig->getValue(
             'system/schumacherfm_pace/' . $type . '_pace_theme',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
     }
 
     /**
+     * Get Theme Color config
+     *
      * @param string $type
      * @return string
      */
-    public function getThemeColor($type = 'backend') {
-        return $this->_scopeConfig->getValue(
+    public function getThemeColor($type = 'backend')
+    {
+        return $this->scopeConfig->getValue(
             'system/schumacherfm_pace/' . $type . '_pace_color',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
     }
 
     /**
-     * @param string $type
+     * Get Custom CSS config
      *
+     * @param string $type
      * @return string
      */
-    public function getCustomCSS($type = 'backend') {
-        return $this->_scopeConfig->getValue(
+    public function getCustomCSS($type = 'backend')
+    {
+        return $this->scopeConfig->getValue(
             'system/schumacherfm_pace/' . $type . '_custom_css',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
     }
 
     /**
+     * Get is frontend enabled config
+     *
      * @return bool
      */
-    public function isFrontendEnabled() {
-        return $this->_scopeConfig->isSetFlag(
+    public function isFrontendEnabled()
+    {
+        return $this->scopeConfig->isSetFlag(
             'system/schumacherfm_pace/frontend_enable',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );

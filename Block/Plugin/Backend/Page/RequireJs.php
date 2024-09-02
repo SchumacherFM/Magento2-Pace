@@ -8,10 +8,8 @@
  */
 namespace SchumacherFM\Pace\Block\Plugin\Backend\Page;
 
-
 class RequireJs extends \SchumacherFM\Pace\Block\Plugin\AbstractPace
 {
-
     /**
      * There is also the possibility to add a block to head.additional but then
      * pace would be added a little bit later to the page instead of right after

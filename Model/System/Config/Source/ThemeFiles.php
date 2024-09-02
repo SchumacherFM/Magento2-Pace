@@ -16,28 +16,17 @@ use Magento\Framework\Filesystem\Directory\ReadFactory;
 class ThemeFiles extends AbstractTheme
 {
     /**
-     * @var ComponentRegistrar
-     */
-    private $componentRegistrar;
-
-    /**
-     * @var ReadFactory
-     */
-    private $readDirFactory;
-
-    /**
      * Constructor
      *
      * @param ComponentRegistrar $componentRegistrar
      * @param ReadFactory $readDirFactory
+     * @param \Magento\Framework\Filesystem\Io\File $fileSystemIo
      */
     public function __construct(
-        ComponentRegistrar $componentRegistrar,
-        ReadFactory $readDirFactory
-    )
-    {
-        $this->componentRegistrar = $componentRegistrar;
-        $this->readDirFactory = $readDirFactory;
+        private ComponentRegistrar $componentRegistrar,
+        private ReadFactory $readDirFactory,
+        private \Magento\Framework\Filesystem\Io\File $fileSystemIo
+    ) {
     }
 
     /**
@@ -49,7 +38,8 @@ class ThemeFiles extends AbstractTheme
     {
         $return = [];
         foreach ($this->getThemeFiles() as $file) {
-            $bFile = basename($file);
+            $fileInfo = $this->fileSystemIo->getPathInfo($file);
+            $bFile = $fileInfo['basename'];
             if (false !== strpos($file, '.css')) {
                 $return[] = ['value' => $bFile, 'label' => $bFile];
             }
@@ -58,6 +48,8 @@ class ThemeFiles extends AbstractTheme
     }
 
     /**
+     * Get theme files
+     *
      * @return array
      */
     public function getThemeFiles()
@@ -68,6 +60,8 @@ class ThemeFiles extends AbstractTheme
     }
 
     /**
+     * Get Base Directory
+     *
      * @return string
      */
     private function getBaseDir()
@@ -88,14 +82,17 @@ class ThemeFiles extends AbstractTheme
     }
 
     /**
+     * Get Pace css content
+     *
      * @param array $path
      * @return string
      */
     public function getPaceCssContent(array $path)
     {
         $filePath = $this->getBaseDir() . 'themes'  . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $path);
-        $themeDir = dirname( $filePath );
-        $themeFile = basename( $filePath );
+        $fileInfo = $this->fileSystemIo->getPathInfo($filePath);
+        $themeDir = $fileInfo['dirname'];
+        $themeFile = $fileInfo['basename'];
         $dir = $this->readDirFactory->create($themeDir);
         return $dir->readFile($themeFile);
     }
