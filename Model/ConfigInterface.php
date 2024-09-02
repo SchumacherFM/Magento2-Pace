@@ -9,26 +9,32 @@ namespace SchumacherFM\Pace\Model;
 interface ConfigInterface
 {
     /**
-     * @param string $type
+     * Get Theme file config
      *
+     * @param string $type
      * @return string
      */
     public function getThemeFileName($type = 'backend');
 
     /**
+     * Get Theme color config
+     *
      * @param string $type
      * @return string
      */
     public function getThemeColor($type = 'backend');
 
     /**
-     * @param string $type
+     * Get Custom CSS config
      *
+     * @param string $type
      * @return string
      */
     public function getCustomCSS($type = 'backend');
 
     /**
+     * Get is frontend enabled config
+     *
      * @return bool
      */
     public function isFrontendEnabled();

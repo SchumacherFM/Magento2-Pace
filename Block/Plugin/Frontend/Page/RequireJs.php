@@ -8,7 +8,6 @@
  */
 namespace SchumacherFM\Pace\Block\Plugin\Frontend\Page;
 
-
 class RequireJs extends \SchumacherFM\Pace\Block\Plugin\AbstractPace
 {
 

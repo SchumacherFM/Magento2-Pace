@@ -16,76 +16,53 @@ use \SchumacherFM\Pace\Model\System\Config\Source\ThemeFiles;
 
 abstract class AbstractPace
 {
-
+    /**
+     * @var type
+     */
     protected $_type = 'backend';
 
     /**
-     * @var ConfigInterface
-     */
-    protected $_config;
-
-    /**
-     * @var \Magento\Framework\App\Cache\Proxy
-     */
-    protected $_cache;
-
-    /**
-     * @var \Magento\Framework\App\Cache\State
-     */
-    protected $_cacheState;
-
-    /**
-     * @var \Magento\Store\Model\StoreManagerInterface
-     */
-    protected $_storeManager;
-
-    /**
-     * @var ThemeFiles
-     */
-    protected $_themeFiles;
-
-    /**
+     * Constructer function
+     *
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param Context $context
      * @param ConfigInterface $config
      * @param ThemeFiles $themeFiles
      */
     public function __construct(
-        \Magento\Store\Model\StoreManagerInterface $storeManager,
-        Context $context,
-        ConfigInterface $config,
-        ThemeFiles $themeFiles
+        protected \Magento\Store\Model\StoreManagerInterface $storeManager,
+        protected Context $context,
+        protected ConfigInterface $config,
+        protected ThemeFiles $themeFiles
     ) {
-        $this->_storeManager = $storeManager;
-        $this->_config = $config;
-        $this->_cache = $context->getCache();
-        $this->_cacheState = $context->getCacheState();
-        $this->_themeFiles = $themeFiles;
     }
 
     /**
+     * Is allowed method
+     *
      * @param AbstractBlock $subject
      * @return bool
      */
-    protected function _isAllowed(AbstractBlock $subject) {
+    protected function _isAllowed(AbstractBlock $subject)
+    {
         if ($subject instanceof RequireJs) {
             return true;
         }
 
-        if ($this->_config->isFrontendEnabled()) {
+        if ($this->config->isFrontendEnabled()) {
             $this->_type = 'frontend';
             return true;
         }
         return false;
     }
 
-
     /**
-     * gets css/js for pace.js and saves or loads it from cache
+     * Gets css/js for pace.js and saves or loads it from cache
      *
      * @return string
      */
-    protected function _getPaceHtml() {
+    protected function _getPaceHtml()
+    {
         $pace = $this->_loadCache();
         if (false === $pace) {
             $pace = $this->_getCss() . $this->_getJs();
@@ -95,35 +72,43 @@ abstract class AbstractPace
     }
 
     /**
+     * Get CSS
+     *
      * @return string
      */
-    protected function _getCss() {
-        $color = $this->_config->getThemeColor();
+    protected function _getCss()
+    {
+        $color = $this->config->getThemeColor();
         $color = true === empty($color) ? '' : $color . DIRECTORY_SEPARATOR;
 
         return '<style type="text/css">' .
         $this->_compressCss(
-            $this->_themeFiles->getPaceCssContent([$color, $this->_config->getThemeFileName($this->_type)]) .
-            $this->_config->getCustomCSS($this->_type)
+            $this->themeFiles->getPaceCssContent([$color, $this->config->getThemeFileName($this->_type)]) .
+            $this->config->getCustomCSS($this->_type)
         )
         . '</style>';
     }
 
     /**
+     * Get JS
+     *
      * @return string
      */
-    protected function _getJs() {
+    protected function _getJs()
+    {
         return '<script type="text/javascript">' .
-        $this->_themeFiles->getPaceJsContent()
+        $this->themeFiles->getPaceJsContent()
         . '</script>';
     }
 
     /**
-     * @param $css
+     * Compress CSS
      *
+     * @param string $css
      * @return string
      */
-    protected function _compressCss($css) {
+    protected function _compressCss($css)
+    {
         $css = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css);
         $css = str_replace([': ', ', '], [':', ','], $css);
         return preg_replace('~([\r\n\t]+|\s{2,})~', '', $css);
@@ -134,11 +119,12 @@ abstract class AbstractPace
      *
      * @return string|false
      */
-    protected function _loadCache() {
-        if (!$this->_cacheState->isEnabled(\Magento\Framework\View\Element\AbstractBlock::CACHE_GROUP)) {
+    protected function _loadCache()
+    {
+        if (!$this->context->getCacheState()->isEnabled(\Magento\Framework\View\Element\AbstractBlock::CACHE_GROUP)) {
             return false;
         }
-        return $this->_cache->load($this->getCacheKey());
+        return $this->context->getCache()->load($this->getCacheKey());
     }
 
     /**
@@ -147,32 +133,51 @@ abstract class AbstractPace
      * @param string $data
      * @return $this
      */
-    protected function _saveCache($data) {
-        if (!$this->_cacheState->isEnabled(\Magento\Framework\View\Element\AbstractBlock::CACHE_GROUP)) {
+    protected function _saveCache($data)
+    {
+        if (!$this->context->getCacheState()->isEnabled(\Magento\Framework\View\Element\AbstractBlock::CACHE_GROUP)) {
             return false;
         }
         $cacheKey = $this->getCacheKey();
-        $this->_cache->save($data, $cacheKey, $this->getCacheTags(), $this->getCacheLifetime());
+        $this->context->getCache()->save($data, $cacheKey, $this->getCacheTags(), $this->getCacheLifetime());
         return $this;
     }
 
-    protected function getCacheLifetime() {
+    /**
+     * Get cache lifetime
+     *
+     * @return string|false
+     */
+    protected function getCacheLifetime()
+    {
         return null; // unlimited time valid
     }
 
-    protected function getCacheTags() {
+    /**
+     * Get cache tags
+     *
+     * @return string|false
+     */
+    protected function getCacheTags()
+    {
         return [
             \Magento\Backend\Block\Menu::CACHE_TAGS // are there any better?
         ];
     }
 
-    protected function getCacheKey() {
+    /**
+     * Get cache key
+     *
+     * @return string|false
+     */
+    protected function getCacheKey()
+    {
         $key = [
-            $this->_storeManager->getStore()->getId(),
+            $this->storeManager->getStore()->getId(),
             'pace_js',
             $this->_type,
-            $this->_config->getThemeColor(),
-            $this->_config->getThemeFileName(),
+            $this->config->getThemeColor(),
+            $this->config->getThemeFileName(),
         ];
         return implode('_', $key);
     }
